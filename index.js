@@ -25,8 +25,7 @@ async function loadFile(dir) {
 							try {
 								let textureExists = await fs.lstat(path.join(textureBasePath, filePath));
 							} catch (e) {
-								console.log('Texture does not exist: ' + textureBasePath + filePath);
-								console.log('JSON PATH ' + dir + '\\' + file);
+								console.log(`Texture does not exist: ${textureBasePath}${filePath}, JSON Path: ${dir}${file}, Override: ${overrideTextureObj}`);
 							}
 						});
 					}
@@ -40,8 +39,7 @@ async function loadFile(dir) {
 					try {
 						let textureExists = await fs.lstat(path.join(textureBasePath, filePath));
 					} catch (e) {
-						console.log('Texture does not exist: ' + textureBasePath + filePath);
-						console.log('JSON PATH ' + dir + '\\' + file);
+						console.log(`Texture does not exist: ${textureBasePath}${filePath}, JSON Path: ${dir}${file}, Texture: ${textureObj}`);
 					}
 				});
 			}
