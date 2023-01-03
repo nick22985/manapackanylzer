@@ -1,13 +1,16 @@
+import chalk from 'chalk';
+
 const fs = require('fs').promises;
 const path = require('path');
+const __dirname = path.resolve();
 
-async function loadFile(dir) {
+async function loadFile(dir, basePath) {
 	const filePath = path.join(__dirname, dir);
 	const files = await fs.readdir(filePath);
-	const textureBasePath = './manacube/assets/minecraft/textures/';
+	const textureBasePath = basePath + '/assets/minecraft/textures/';
 	for (const file of files) {
 		const stat = await fs.lstat(path.join(filePath, file));
-		if (stat.isDirectory()) loadFile(path.join(dir, file));
+		if (stat.isDirectory()) loadFile(path.join(dir, file), basePath);
 		if (file.endsWith('.json')) {
 			const data = await fs.readFile(path.join(filePath, file), 'utf8');
 			const json = JSON.parse(data);
@@ -25,7 +28,7 @@ async function loadFile(dir) {
 							try {
 								let textureExists = await fs.lstat(path.join(textureBasePath, filePath));
 							} catch (e) {
-								console.log(`Texture does not exist: ${textureBasePath}${filePath}, JSON Path: ${dir}${file}, Override: ${overrideTextureObj}`);
+								console.log(`Texture does not exist: ${textureBasePath.replace(/\//g, '\\')}${filePath.replace(/\//g, '\\')}, JSON Path: ${dir.replace(/\//g, '\\')}\\${file.replace(/\//g, '\\')}, Override: ${overrideTextureObj}`);
 							}
 						});
 					}
@@ -39,7 +42,7 @@ async function loadFile(dir) {
 					try {
 						let textureExists = await fs.lstat(path.join(textureBasePath, filePath));
 					} catch (e) {
-						console.log(`Texture does not exist: ${textureBasePath}${filePath}, JSON Path: ${dir}${file}, Texture: ${textureObj}`);
+						console.log(`Texture does not exist: ${textureBasePath.replace(/\//g, '\\')}${filePath.replace(/\//g, '\\')}, JSON Path: ${dir.replace(/\//g, '\\')}\\${file.replace(/\//g, '\\')}, Texture: ${textureObj}`);
 					}
 				});
 			}
@@ -47,12 +50,12 @@ async function loadFile(dir) {
 	}
 }
 
-function main() {
+export async function mcPackAnalyzer(options) {
+	console.log(`${chalk.blue('[MPA]')}${chalk.blueBright.bold('[Info]')} In progress ...`);
 	// Load up the files that are responsible for assigning images to the textures
-	const basePath = './manacube/';
-	const modelBase = basePath + 'assets/minecraft/models/item';
+	const modelBase = options.path + '/assets/minecraft/models/item';
 	// get all the files in the model folder
-	loadFile(modelBase);
-}
+	const filePath = path.join(__dirname, options.path);
 
-main();
+	loadFile(modelBase, filePath);
+}

@@ -1,15 +1,36 @@
 {
-	"name": "packanylzer",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"start": "node index.js"
+	"name": "manapackanylzer",
+	"version": "0.0.0",
+	"description": "Checks pack for any missing texture errors",
+	"main": "arc/manapackanaylser",
+	"bin": {
+		"@nick22985/manapackanaylser": "bin/manapackanaylser",
+		"mpa": "bin/manapackanaylser",
+		"manapackanaylser": "bin/manapackanaylser",
+		"mcPackanalyzer": "bin/manapackanaylser",
+		"manapackanalyzer": "bin/manapackanaylser"
 	},
-	"author": "",
-	"license": "ISC",
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"pack",
+		"manapackanaylser",
+		"anylszer",
+		"minecraft",
+		"mcPackAnalyzer"
+	],
+	"author": "nick22985",
+	"license": "MIT",
 	"dependencies": {
+		"arg": "^5.0.2",
+		"chalk": "^4.1.2",
+		"esm": "^3.2.25",
+		"inquirer": "^8.2.0",
 		"node-fetch": "^3.3.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nick22985/manapackanylzer"
 	}
 }
