@@ -1,6 +1,6 @@
 {
 	"name": "@nick22985/manapackanylzer",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Checks pack for any missing texture errors",
 	"main": "arc/manapackanaylser",
 	"bin": {
